@@ -1,5 +1,13 @@
 # 당근마켓 클론 API
 
+- Base URL : https://www.jiyeon.site/
+- Server : AWS EC2
+- Server Program : Nginx
+- Database : AWS RDS
+- RDBMS : MySQL
+- Build with Gradle
+<br>
+
 **User**
 
 | API                  | 프론트                                       | 방향 | 서버                                                             |
