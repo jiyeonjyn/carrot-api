@@ -1,32 +1,27 @@
-# springboot-api
- 
-| 프론트 | 방향 | 서버 |
-| --- | --- | --- |
-| User |  |  |
-| POST /auth
-requestbody에 phone | → | SMS 인증 요청 |
-| POST /auth/verify
-requestbody에 phone, verifyNum | → | 결과 맞는지 확인 |
-| 오류코드 3014면 추가 정보 입력 페이지로
-jwt 전달 받으면 GET /products로 | ← | 기존 유저 있으면 로그인 진행
-(jwt 생성하여 전달),
-기존 유저 없으면 3014 오류 |
-| POST /users
-requestbody에 user 정보 | → | addUser 후 로그인 진행
-(jwt 생성하여 전달) |
-| GET /users | → | 관리자일 때만 페이지 보여줌
-관리자가 아닌 경우 2003 오류 |
-| GET /users/{userIdx} | → | 해당 유저 상세페이지 |
-| Product |  |  |
-| GET /products | → | jwt에서 userIdx 얻어
-해당 지역의 상품 목록 조회 |
-| GET /products?writer={userIdx}&status={status} | → | 특정 유저의 판매 상품 목록 조회 |
-| GET /products/{productIdx} | → | 유저와 게시글 작성자의 userIdx가 다르면 ViewCount 테이블에 기록 |
-| POST /products
-requestbody에 게시글 내용 | → | jwt에서 userIdx 얻어
-requestbody에 set |
-| PUT /products
-requestbody에 게시글 내용 | → | 컨트롤러에서 유저와 게시글 작성자의 userIdx가 같은지 체크 |
-| DELECT /products/{productIdx} | → | 서비스에서 유저와 게시글 작성자의 userIdx가 같은지 체크 |
-| GET /categories/{categoryIdx}/products | → | jwt에서 userIdx 얻어 해당 카테고리,
-해당 지역의 상품 목록 조회 |
+# 당근마켓 클론 API
+
+## [User]
+
+| API                  | 프론트                                       | 방향 | 서버                                                             |
+| -------------------- | -------------------------------------------- | ---- | ---------------------------------------------------------------- |
+| POST /auth           | (requestbody) phone                          | →    | SMS 인증 요청                                                    |
+| POST /auth/verify    | (requestbody) phone, verifyNum               | →    | 인증 결과 확인                                                   |
+|                      | jwt 전달 받으면 GET /products로 이동         | ←    | 기존 유저 있으면 로그인 진행<br>(jwt 생성하여 전달)              |
+|                      | 오류코드 3014 : 가입 정보 입력 페이지로 이동 | ←    | 기존 유저 없으면 3014 오류 전달                                  |
+| POST /users          | (requestbody) user 정보                      | →    | addUser 후 로그인 진행<br>(jwt 생성하여 전달)                    |
+| GET /users           | (header) jwt                                 | →    | 관리자면 전체 user 정보 조회, <br>관리자가 아니면 2003 오류 전달 |
+| GET /users/{userIdx} | (header) jwt                                 | →    | 해당 유저 상세페이지 조회                                        |
+
+<br>
+
+## [Product]
+
+| Http 메소드                                    | 프론트                                   | 방향 | 서버                                                                                         |
+| ---------------------------------------------- | ---------------------------------------- | ---- | -------------------------------------------------------------------------------------------- |
+| GET /products                                  | (header) jwt                             | →    | jwt에서 userIdx 얻어 유저의 address에 해당하는 지역의 상품 목록 조회                         |
+| GET /products?writer={userIdx}&status={status} | (header) jwt                             | →    | 특정 유저의 판매 상품 목록 조회                                                              |
+| GET /products/{productIdx}                     | (header) jwt                             | →    | 유저와 상품 판매자의 userIdx가 다르면 ViewCount 테이블에 기록                                |
+| POST /products                                 | (header) jwt <br>(requestbody) 상품 내용 | →    | jwt에서 userIdx 얻어 상품 등록                                                               |
+| PUT /products                                  | (header) jwt <br>(requestbody) 상품 내용 | →    | 유저와 상품 판매자의 userIdx가 같은지 체크한 후 같으면 상품 수정                             |
+| DELETE /products/{productIdx}                  | (header) jwt                             | →    | 유저와 상품 판매자의 userIdx가 같은지 체크한 후 같으면 상품 삭제                             |
+| GET /categories/{categoryIdx}/products         | (header) jwt                             | →    | jwt에서 userIdx 얻어 해당 카테고리의 상품 중 유저의 address에 해당하는 지역의 상품 목록 조회 |
