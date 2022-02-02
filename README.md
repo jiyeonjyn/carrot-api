@@ -1,6 +1,6 @@
 # 당근마켓 클론 API
 
-- Base URL : ~~https://www.jiyeon.site/ (Expired)~~
+- Base URL : ~~https://www.jiyeon.site/~~ (Expired)
 - Server : AWS EC2
 - Server Program : Nginx
 - Database : AWS RDS
@@ -47,4 +47,5 @@
 <br>
 
 **Example**
+<br>
 [당근마켓 API.pdf](https://github.com/jiyeonjyn/carrot-api/files/7983875/API.pdf)
