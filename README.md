@@ -1,6 +1,6 @@
 # 당근마켓 클론 API
 
-- Base URL : ~~https://www.jiyeon.site/ (Expired)~~ https://3.37.202.234 (You can test it on Postman.)
+- Base URL : ~~https://www.jiyeon.site/ (Expired)~~  https://3.37.202.234 (You can test it on Postman.)
 - Server : AWS EC2
 - Server Program : Nginx
 - Database : AWS RDS
